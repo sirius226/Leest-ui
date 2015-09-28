@@ -1,23 +1,26 @@
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+  <section id="todoapp">
+    <header id="header">
+      <h1>todos</h1>
+      <form id="todo-form" ng-submit="main.addTodo()">
+        <input id="new-todo" placeholder="What needs to be done?" ng-model="main.newTodo.title" autofocus>
+      </form>
+    </header>
+    <section id="main" ng-show="main.todos.length" ng-cloak>
+      <input id="toggle-all" type="checkbox" ng-model="main.allChecked" ng-click="main.markAll()">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="todo-list">
+        <li ng-repeat="todo in main.todos" ng-class="{completed: todo.completed, editing: todo == main.editedTodo}">
+          <div class="view">
+            <input class="toggle" type="checkbox" ng-model="todo.completed">
+            <label ng-dblclick="main.editTodo(todo)">{{todo.title}}</label>
+            <button class="destroy" ng-click="removeTodo(todo)"></button>
+          </div>
+          <form ng-submit="main.doneEditing(todo)">
+            <input class="edit" ng-trim="false" ng-model="todo.title" ng-blur="main.doneEditing(todo)" todo-escape="revertEditing(todo)" todo-focus="todo == editedTodo">
+          </form>
+        </li>
+      </ul>
+    </section>
+  </section>
 </div>
