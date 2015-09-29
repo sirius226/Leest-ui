@@ -31,7 +31,19 @@ angular.module('leestUiApp')
 
     vm.editTodo = function(todo){
       vm.editedTodo = todo;
+    }
 
+    vm.doneEditing = function(todo){
+      $log.debug(todo);
+      vm.editedTodo = {};
+    }
+
+    vm.removeTodo = function(todo){
+      $log.debug(todo);
+      var i = vm.todos.indexOf(todo);
+      if (i != -1){
+        vm.todos.splice(i, 1);
+      }
     }
 
   }]);
