@@ -35,5 +35,8 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "angular-ui-sortable": "^0.13.4"
   }
 }

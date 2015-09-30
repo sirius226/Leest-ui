@@ -8,9 +8,9 @@
  * Provider in the leestUiApp.
  */
 angular.module('leestUiApp')
-  .provider('Todos', function () {
+  .provider('Todo', function () {
     this.$get = ['$resource', function($resource) {
-      var Todo = $resource( 'http://localhost:8080/api/todos/:id', {id: '@id'},
+      var Todo = $resource( 'http://localhost:3000/api/todos/:id', {id: '@id'},
         {
           update: {
             method: 'PUT'
