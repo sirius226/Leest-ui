@@ -18,4 +18,4 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.sortable',
-  ])
+  ]);

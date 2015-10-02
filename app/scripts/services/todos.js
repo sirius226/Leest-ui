@@ -15,6 +15,9 @@ angular.module('leestUiApp')
           update: {
             method: 'PUT'
           },
+          delete: {
+            method: 'DELETE'
+          }
         });
       return Todo;
     }];

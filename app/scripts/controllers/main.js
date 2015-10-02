@@ -10,43 +10,49 @@
 angular.module('leestUiApp')
   .controller('MainCtrl', ['$scope', '$log', '$q', 'todos', 'Todo', function ($scope, $log, $q, todos, Todo) {
     var vm = this;
-    $log.debug(todos)
-    vm.todos = todos.todos
+    $log.debug(todos);
+    vm.todos = todos.todos;
     vm.remainingCount = 1;
     vm.newTodo = {title: '', completed: false,  order:vm.todos.length};
     vm.allChecked = true;
     vm.editedTodo = {};
 
     vm.addTodo = function(){
-      saveTodo(vm.newTodo).then(function(){
+      saveTodo(vm.newTodo).then(function(response){
         vm.todos.push(vm.newTodo);
+        $log.debug(response);
         $log.debug(vm.todos);
         vm.newTodo = {title: '', completed: false, order:vm.todos.length};
       });
-    }
+    };
 
     vm.markAll = function(){
       for(var i in vm.todos){
         vm.todos[i].completed = vm.allChecked;
       }
       $log.debug(vm.allChecked);
-    }
+    };
 
     vm.editTodo = function(todo){
       vm.editedTodo = todo;
-    }
+    };
 
     vm.doneEditing = function(todo){
-      $log.debug(todo);
-      vm.editedTodo = {};
+      updateTodo(todo).then(function(response){
+        $log.debug(response);
+        vm.editedTodo = {};
+      })
     };
 
     vm.removeTodo = function(todo){
       $log.debug(todo);
-      var i = vm.todos.indexOf(todo);
-      if (i != -1){
-        vm.todos.splice(i, 1);
-      }
+      deleteTodo(todo).then(function(response){
+        $log.debug(response);
+        var i = vm.todos.indexOf(todo);
+        if (i !== -1){
+          vm.todos.splice(i, 1);
+        }
+      });
     };
 
     var saveTodo = function(todo) {
@@ -57,4 +63,19 @@ angular.module('leestUiApp')
       return defer.promise;
     };
 
+    var updateTodo = function(todo) {
+      var defer = $q.defer();
+      Todo.update({todo:todo, id:todo.id}, function(response) {
+        defer.resolve(response);
+      });
+      return defer.promise;
+    };
+
+    var deleteTodo = function(todo) {
+      var defer = $q.defer();
+      Todo.delete({todo:todo, id:todo.id}, function (response){
+        defer.resolve(response);
+      });
+      return defer.promise;
+    }
   }]);
