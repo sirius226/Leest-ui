@@ -8,7 +8,7 @@
  * Controller of the leestUiApp
  */
 angular.module('leestUiApp')
-  .controller('MainCtrl', ['$scope', '$log', '$q', 'todos', 'Todo', function ($scope, $log, $q, todos, Todo) {
+  .controller('MainCtrl', ['$scope', '$log', '$q', '$http', 'todos', 'Todo', function ($scope, $log, $q, $http, todos, Todo) {
     var vm = this;
     $log.debug(todos);
     vm.todos = todos.todos;
@@ -26,11 +26,24 @@ angular.module('leestUiApp')
       });
     };
 
+    vm.mark = function(todo){
+      updateTodo(todo).then(function(response){
+        $log.debug(response);
+        vm.editedTodo = {};
+      })
+    };
+
     vm.markAll = function(){
-      for(var i in vm.todos){
-        vm.todos[i].completed = vm.allChecked;
-      }
       $log.debug(vm.allChecked);
+      $http({
+        method: 'POST',
+        url: 'http://localhost:3000/api/mark_all',
+        data: {completed: !vm.allChecked}
+      }).then(function successCallback(response) {
+        $log.debug(response);
+        vm.todos = response.data.todos
+      });
+
     };
 
     vm.editTodo = function(todo){
