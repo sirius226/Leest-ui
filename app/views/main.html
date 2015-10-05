@@ -9,7 +9,7 @@
     <section id="main" ng-show="main.todos.length" ng-cloak>
       <input id="toggle-all" type="checkbox" ng-model="main.allChecked" ng-click="main.markAll()">
       <label for="toggle-all">Mark all as complete</label>
-      <ul id="todo-list">
+      <ul ui-sortable="sortableOptions" ng-model="main.todos" id="todo-list">
         <li ng-repeat="todo in main.todos" ng-class="{completed: todo.completed, editing: todo == main.editedTodo}">
           <div class="view">
             <input class="toggle" type="checkbox" ng-model="todo.completed" ng-click="main.mark(todo)">

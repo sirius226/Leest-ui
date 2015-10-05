@@ -8,10 +8,11 @@
  * Controller of the leestUiApp
  */
 angular.module('leestUiApp')
-  .controller('MainCtrl', ['$scope', '$log', '$q', '$http', 'todos', 'Todo', function ($scope, $log, $q, $http, todos, Todo) {
+  .controller('MainCtrl', ['$scope', '$log', '$q', '$http', '$filter', 'todos', 'Todo', function ($scope, $log, $q, $http, $filter, todos, Todo) {
     var vm = this;
     $log.debug(todos);
-    vm.todos = todos.todos;
+    vm.todos = $filter('orderBy')(todos.todos, '+order', false);
+    $log.debug(vm.todos);
     vm.remainingCount = 1;
     vm.newTodo = {title: '', completed: false,  order:vm.todos.length};
     vm.allChecked = true;
@@ -41,7 +42,7 @@ angular.module('leestUiApp')
         data: {completed: !vm.allChecked}
       }).then(function successCallback(response) {
         $log.debug(response);
-        vm.todos = response.data.todos
+        vm.todos = $filter('orderBy')(response.data.todos, '+order', false);
       });
 
     };
@@ -90,5 +91,25 @@ angular.module('leestUiApp')
         defer.resolve(response);
       });
       return defer.promise;
-    }
+    };
+
+    $scope.sortableOptions = {
+      stop: function(e, ui) {
+        $log.debug("stop");
+        // this callback has the changed model
+        var orderList = [];
+        for(var i in vm.todos){
+          orderList.push(vm.todos[i].id);
+        }
+        $log.debug(orderList);
+        $http({
+          method: 'POST',
+          url: 'http://localhost:3000/api/reorder',
+          data: {orderList: orderList}
+        }).then(function successCallback(response) {
+          $log.debug(response);
+        });
+      }
+    };
+
   }]);
