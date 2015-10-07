@@ -19,4 +19,4 @@ angular.module('leestUiApp')
       .otherwise({
         redirectTo: '/'
       });
-  })
+  });

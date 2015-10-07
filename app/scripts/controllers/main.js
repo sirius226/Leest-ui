@@ -31,7 +31,7 @@ angular.module('leestUiApp')
       updateTodo(todo).then(function(response){
         $log.debug(response);
         vm.editedTodo = {};
-      })
+      });
     };
 
     vm.markAll = function(){
@@ -55,7 +55,7 @@ angular.module('leestUiApp')
       updateTodo(todo).then(function(response){
         $log.debug(response);
         vm.editedTodo = {};
-      })
+      });
     };
 
     vm.removeTodo = function(todo){
@@ -94,7 +94,7 @@ angular.module('leestUiApp')
     };
 
     $scope.sortableOptions = {
-      stop: function(e, ui) {
+      stop: function() {
         $log.debug("stop");
         // this callback has the changed model
         var orderList = [];
