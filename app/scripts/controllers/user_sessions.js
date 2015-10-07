@@ -8,8 +8,8 @@
  * Controller of the leestUiApp
  */
 angular.module('leestUiApp')
-  .controller('UserSessionsCtrl', '$scope', function ($scope){
+  .controller('UserSessionsCtrl', ['$scope', function ($scope){
     $scope.$on('auth:login-error', function(ev, reason) {
       $scope.error = reason.errors[0];
     });
-  });
+  }]);
