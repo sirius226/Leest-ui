@@ -1,0 +1,30 @@
+<div class="jumbotron">
+  <div class="container" ng-controller="UserRegistrationsCtrl">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="alert alert-danger" role="alert" ng-show="errors">
+          <div ng-repeat="error in errors">
+            {{error}}
+          </div>
+        </div>
+        <legend><i class="glyphicon glyphicon-globe"></i>Sign up!</legend>
+        <form ng-submit="handleRegBtnClick()" role="form" ng-init="registrationForm = {}">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" name="email" id="email" placeholder="Your Email" type="email" ng-model="registrationForm.email" required class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" name="password" id="password" placeholder="New Password" type="password" ng-model="registrationForm.password" required class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation">Password Confirmation</label>
+            <input class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" type="password" ng-model="registrationForm.password_confirmation" required class="form-control"/>
+          </div>
+          <br/>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

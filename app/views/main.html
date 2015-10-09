@@ -1,12 +1,13 @@
 <div class="jumbotron">
   <section id="todoapp">
     <header id="header">
-      <h1>todos</h1>
-      <form id="todo-form" ng-submit="main.addTodo()">
+      <h1>Leest</h1>
+      <p ng-show="!user.id"><a ng-href="#/sign_up">Sign up</a> to create your todo list!</p>
+      <form id="todo-form" ng-submit="main.addTodo()" ng-show="user.id">
         <input id="new-todo" placeholder="What needs to be done?" ng-model="main.newTodo.title" autofocus>
       </form>
     </header>
-    <section id="main" ng-show="main.todos.length" ng-cloak>
+    <section id="main" ng-show="user.id && main.todos.length" ng-cloak >
       <input id="toggle-all" type="checkbox" ng-model="main.allChecked" ng-click="main.markAll()">
       <label for="toggle-all">Mark all as complete</label>
       <ul ui-sortable="sortableOptions" ng-model="main.todos" id="todo-list">

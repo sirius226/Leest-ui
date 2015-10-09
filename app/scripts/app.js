@@ -22,7 +22,7 @@ angular
   ])
   .config(function($authProvider) {
     $authProvider.configure({
-      apiUrl:                  'http://0.0.0.0:3000/api',
+      apiUrl: 'http://0.0.0.0:3000/api',
     });
   })
   .run(['$rootScope', '$location', function($rootScope, $location) {

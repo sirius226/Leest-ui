@@ -16,6 +16,9 @@ angular.module('leestUiApp')
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/sign_up',{
+        templateUrl: 'views/sign_up.html',
+      })
       .otherwise({
         redirectTo: '/'
       });

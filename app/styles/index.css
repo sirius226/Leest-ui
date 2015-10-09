@@ -129,6 +129,13 @@ hr {
   transition-duration: 500ms;
 }
 
+.jumbotron {
+  border-bottom: 1px solid #e5e5e5;
+  .form-control { margin-bottom: 10px; }
+}
+
+
+
 @media (min-width: 899px) {
   .learn-bar {
     width: auto;
